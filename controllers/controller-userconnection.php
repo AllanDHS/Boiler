@@ -1,65 +1,48 @@
 <?php
 
-// J'ouvre ma session
+var_dump($_POST);
 
-session_start();
-var_dump($_SESSION);
-
-// Si l'utilisateur est déjà connecté, je le redirige vers le dashboard user
-if (isset($_SESSION['Employes'])) {
-    header('Location: ../controllers/controller-userdashboard.php');
-    exit;
-}
-
-
-
-
-// j'appelle mon fichier de configuration
+// J'appelle mon fichier de configuration
 require_once '../config.php';
 
-
-// j'appelle mes helpers
+// J'appelle mes Helpers
 require_once '../helpers/database.php';
 require_once '../helpers/form.php';
 
+// J'appelle mon fichier de fonctions
+require_once '../models/users.php';
 
-// j'appelle mes models
-require_once '../models/user.php';
+$errors = []; // Je crée un tableau d'erreurs
 
-$errors = []; // je créé un tableau d'erreurs vide
-
-// Je vérifie si la méthode de requête est bien POST pour lancer mes traitements
+// Je verifie les requetes POST$
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    // on recupère les valeurs dans la super global $_POST
-    $logib = $_POST['login'];
+    $login = $_POST['login'];
     $password = $_POST['password'];
 
     // je verifie que le login existe dans la base de données à l'aide de la méthode checkLogin()
-    if (User::checkIfLoginExist($login)) {
+    if (Users::IfLoginExist($login)) {
         // je verifie que le mot de passe correspond au mdp associé au login à l'aide de la méthode checkPassword()
-        if (User::checkPassword($login, $password)) {  
-            // Si tout est ok, je créé une session et je redirige vers le menu admin
-        
-            $_SESSION['User'] = User::getInfoUser($login);
-            unset($_SESSION['User']['password']);  
-
-            header('Location: ../controllers/controller-userdashboard.php');
-            exit;
+        if (Users::checkPassword($login, $password)) {
+            // Si tout est ok, je créé une session et je redirige vers le page d'accueil
+            session_start();
+            $_SESSION['login'] = $login;
+            header('Location: ../controllers/controller-mainpage.php');
         } else {
             $errors['password'] = 'Mauvais mot de passe';
         }
     } else {
-        $errors['email'] = 'Mauvais login';
+        $errors['login'] = 'Mauvais login';
     }
 }
 
 
-// Ferme la session
-// session_destroy();
 
 
 
-// Inclus la vue respective
-include "../views/userconnection.php";
-?>
+
+
+
+
+
+// j'inclus la vue respective
+include '../views/userconnection.php';

@@ -1,27 +1,3 @@
+<?php include 'components/header.php'; ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<?php include "components/footer.php"; ?>
+<h1>TEST</h1>
