@@ -1,13 +1,21 @@
 <?php include 'components/header.php'; ?>
 
+<div class="bg">
+    <div class="center">
+        <div class="form">
+            <h1>Connexion</h1>
+            <form action="" method="POST">
+                <div class="input">
+                    <input type="text" name="login" placeholder="Login" id="login">
+                    <span class="error"><?= $errors['login'] ?? '' ?></span>
+                    <input type="password" name="password" placeholder="Password" id="password">
+                    <span class="error"><?= $errors['password'] ?? '' ?></span>
+                </div>
+                <button type="submit">Connexion</button>
 
-<div class="form">
-    <h1>Connection</h1>
-    <form action="#" method="post">
-        <input type="text" name="login" placeholder="Login" id="login" required>
-        <span class="error"><?= $errors['login'] ?? '' ?></span>
-        <input type="password" name="password" placeholder="Password" id="password" required>
-        <span class="error"><?= $errors['password'] ?? '' ?></span>
-        <button type="submit">Connection</button>
-    </form>
+            </form>
+        </div>
+    </div>
 </div>
+
+
