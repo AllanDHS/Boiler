@@ -11,7 +11,7 @@
                     <input type="password" name="password" placeholder="Password" id="password">
                     <span class="error"><?= $errors['password'] ?? '' ?></span>
                 </div>
-                <button type="submit">Connexion</button>
+                <button type="submit" id="connect">Connexion</button>
 
             </form>
         </div>
